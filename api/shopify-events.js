@@ -1,7 +1,7 @@
 module.exports = (req, res) => {
-  // Enable CORS for Shopify webhooks
+  // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   // Handle preflight requests
@@ -10,29 +10,25 @@ module.exports = (req, res) => {
     return;
   }
 
-  // Only allow POST requests
-  if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method not allowed' });
+  // Handle GET requests
+  if (req.method === 'GET') {
+    console.log('📊 Event received (GET):', req.query);
+    
+    // Return 1x1 transparent GIF
+    const pixel = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64');
+    res.setHeader('Content-Type', 'image/gif');
+    res.status(200).send(pixel);
     return;
   }
 
-  try {
-    console.log('🛎️ Shopify webhook event received:', req.body);
+  // Handle POST requests
+  if (req.method === 'POST') {
+    console.log('📊 Event received (POST):', req.body);
     
-    // Here you can add your webhook processing logic
-    // For example, handling order creation, product updates, etc.
-    
-    // Return 200 status to acknowledge receipt
-    res.status(200).json({ 
-      success: true, 
-      message: 'Webhook received successfully',
-      timestamp: new Date().toISOString()
-    });
-  } catch (error) {
-    console.error('❌ Error processing webhook:', error);
-    res.status(500).json({ 
-      error: 'Internal server error',
-      message: error.message 
-    });
+    res.status(200).json({ success: true });
+    return;
   }
+
+  // Method not allowed
+  res.status(405).json({ error: 'Method not allowed' });
 };
