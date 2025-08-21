@@ -1,13 +1,18 @@
 {
   "version": 2,
-  "functions": {
-    "api/shopify-events.js": {
-      "maxDuration": 10
+  "builds": [
+    {
+      "src": "api/shopify-events.js",
+      "use": "@vercel/node"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/shopify-events",
+      "dest": "/api/shopify-events.js"
+    },
+    {
+      "src": "/",
       "dest": "/api/shopify-events.js"
     }
   ]
