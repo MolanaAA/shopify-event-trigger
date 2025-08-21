@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "functions": {
+    "api/shopify-events.js": {
+      "maxDuration": 10
+    }
+  },
+  "routes": [
+    {
+      "src": "/shopify-events",
+      "dest": "/api/shopify-events.js"
+    }
+  ]
+}
