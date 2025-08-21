@@ -33,9 +33,11 @@ module.exports = (req, res) => {
 
   // Handle POST requests
   if (req.method === 'POST') {
-    console.log('📊 Event received (POST):', req.body);
-    console.log('📊 Headers:', req.headers);
-    console.log('📊 URL:', req.url);
+    // Log event name directly (visible in log list)
+    console.log(`📊 Event: ${req.body.event_name || 'unknown'}`);
+    
+    // Log full details (click to see)
+    console.log('📊 Full event data:', req.body);
     
     // Log specific cart events
     if (req.body.event_name === 'add_to_cart' || req.body.event_name === 'product_added_to_cart') {
