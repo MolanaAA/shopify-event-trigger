@@ -10,17 +10,6 @@ module.exports = (req, res) => {
     return;
   }
 
-  // Handle GET requests
-  if (req.method === 'GET') {
-    console.log('📊 Event received (GET):', req.query);
-    
-    // Return 1x1 transparent GIF
-    const pixel = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64');
-    res.setHeader('Content-Type', 'image/gif');
-    res.status(200).send(pixel);
-    return;
-  }
-
   // Handle POST requests
   if (req.method === 'POST') {
     console.log('📊 Event received (POST):', req.body);
